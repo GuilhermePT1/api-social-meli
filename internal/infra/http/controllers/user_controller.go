@@ -33,6 +33,7 @@ func (c *UserController) CreateUser(ctx *gin.Context) {
 		ID:    user.ID,
 		Name:  user.Name,
 		Email: user.Email,
+		Role:  user.Role,
 	})
 }
 

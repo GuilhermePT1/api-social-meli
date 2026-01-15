@@ -18,6 +18,7 @@ func (s *UserService) Create(req dto.UserRequestDTO) (*models.User, error) {
 	user := &models.User{
 		Name:  req.Name,
 		Email: req.Email,
+		Role:  req.Role,
 	}
 	err := s.Repo.Create(user)
 	if err != nil {
