@@ -27,7 +27,7 @@ func (s *UserService) Create(req dto.UserRequestDTO) (*models.User, error) {
 	return user, nil
 }
 
-func (s *UserService) GetById(id uint) (*models.User, error) {
+func (s *UserService) GetById(id uint, name string, email string, role string) (*models.User, error) {
 	return s.Repo.FindById(id)
 }
 
