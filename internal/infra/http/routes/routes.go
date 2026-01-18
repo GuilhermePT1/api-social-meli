@@ -49,8 +49,8 @@ func registerUserRoutes(router *gin.RouterGroup, c *controllers.UserController) 
 func registerFollowRoutes(router *gin.RouterGroup, c *controllers.FollowController) {
 	followRoutes := router.Group("/users")
 	{
-		followRoutes.POST("/:user_id/follow/:user_to_follow_id", c.Follow)
-		followRoutes.POST("/:user_id/unfollow/:user_to_unfollow_id", c.Unfollow)
+		followRoutes.POST("/follow", c.Follow)
+		followRoutes.POST("/unfollow", c.Unfollow)
 		followRoutes.GET("/:user_id/followers/count", c.CountFollowers)
 		followRoutes.GET("/:user_id/followers/list", c.GetFollowers)
 		followRoutes.GET("/:user_id/followed/list", c.GetFollowed)
