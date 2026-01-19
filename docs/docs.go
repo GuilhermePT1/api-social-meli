@@ -517,10 +517,8 @@ const docTemplate = `{
         "dto.PostRequestDTO": {
             "type": "object",
             "required": [
-                "discount",
                 "price",
                 "product_id",
-                "promotion",
                 "user_id"
             ],
             "properties": {
@@ -534,7 +532,8 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "promotion": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": false
                 },
                 "user_id": {
                     "type": "integer"
