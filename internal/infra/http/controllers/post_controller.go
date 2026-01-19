@@ -34,6 +34,8 @@ func (c *PostController) CreatePost(ctx *gin.Context) {
 		UserID:    post.UserID,
 		ProductID: post.ProductID,
 		Price:     post.Price,
+		Promotion: post.HasPromotion,
+		Discount:  post.Discount,
 	})
 }
 
@@ -63,6 +65,8 @@ func (c *PostController) FindByUser(ctx *gin.Context) {
 			UserID:    post.UserID,
 			ProductID: post.ProductID,
 			Price:     post.Price,
+			Promotion: post.HasPromotion,
+			Discount:  post.Discount,
 		})
 	}
 	ctx.JSON(http.StatusOK, response)
@@ -82,6 +86,8 @@ func (c *PostController) FindPromoPosts(ctx *gin.Context) {
 			UserID:    post.UserID,
 			ProductID: post.ProductID,
 			Price:     post.Price,
+			Promotion: post.HasPromotion,
+			Discount:  post.Discount,
 		})
 	}
 	ctx.JSON(http.StatusOK, response)

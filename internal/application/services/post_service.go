@@ -16,9 +16,11 @@ func NewPostService(repo interfaces.PostRepository) *PostService {
 
 func (s *PostService) Create(req dto.PostRequestDTO) (*models.Post, error) {
 	post := &models.Post{
-		UserID:    req.UserID,
-		ProductID: req.ProductID,
-		Price:     req.Price,
+		UserID:       req.UserID,
+		ProductID:    req.ProductID,
+		Price:        req.Price,
+		HasPromotion: req.Promotion,
+		Discount:     req.Discount,
 	}
 	err := s.Repo.Create(post)
 	if err != nil {
