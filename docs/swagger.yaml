@@ -1,0 +1,441 @@
+basePath: /
+definitions:
+  dto.FollowRequestDTO:
+    properties:
+      follower_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - follower_id
+    - user_id
+    type: object
+  dto.FollowResponseDTO:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.PostRequestDTO:
+    properties:
+      discount:
+        type: number
+      price:
+        type: number
+      product_id:
+        type: integer
+      promotion:
+        default: false
+        type: boolean
+      user_id:
+        type: integer
+    required:
+    - price
+    - product_id
+    - user_id
+    type: object
+  dto.PostResponseDTO:
+    properties:
+      created_at:
+        type: string
+      discount:
+        type: number
+      id:
+        type: integer
+      price:
+        type: number
+      product_id:
+        type: integer
+      promotion:
+        type: boolean
+      user_id:
+        type: integer
+    type: object
+  dto.ProductRequestDTO:
+    properties:
+      brand:
+        type: string
+      color:
+        type: string
+      name:
+        type: string
+      notes:
+        type: string
+      type:
+        type: string
+    required:
+    - brand
+    - color
+    - name
+    - notes
+    - type
+    type: object
+  dto.ProductResponseDTO:
+    properties:
+      brand:
+        type: string
+      color:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      notes:
+        type: string
+      type:
+        type: string
+    type: object
+  dto.UserRequestDTO:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+    required:
+    - email
+    - name
+    - role
+    type: object
+  dto.UserResponseDTO:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      role:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API do projeto SocialMeli
+  title: SocialMeli API
+  version: "1.0"
+paths:
+  /api/posts:
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo post com os dados fornecidos
+      parameters:
+      - description: Informações do post
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/dto.PostRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.PostResponseDTO'
+      summary: Cria um novo post
+      tags:
+      - Post
+  /api/posts/promo:
+    get:
+      consumes:
+      - application/json
+      description: Lista os posts com promoção
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.PostResponseDTO'
+            type: array
+      summary: Listar posts com promoção
+      tags:
+      - Post
+  /api/posts/promo/count:
+    get:
+      consumes:
+      - application/json
+      description: Conta o número de produtos com promoção
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.PostResponseDTO'
+            type: array
+      summary: Contar produtos com promoção
+      tags:
+      - Post
+  /api/products:
+    get:
+      consumes:
+      - application/json
+      description: Lista todos os produtos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.ProductResponseDTO'
+            type: array
+      summary: Listar todos os produtos
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo produto com os dados fornecidos
+      parameters:
+      - description: Informações do produto
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.ProductResponseDTO'
+      summary: Cria um novo produto
+      tags:
+      - Product
+  /api/products/{product_id}:
+    get:
+      consumes:
+      - application/json
+      description: Lista um produto específico por ID
+      parameters:
+      - description: ID do produto
+        in: path
+        name: product_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ProductResponseDTO'
+      summary: Listar um produto por ID
+      tags:
+      - Product
+  /api/users:
+    get:
+      consumes:
+      - application/json
+      description: Lista todos os usuários
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.UserResponseDTO'
+            type: array
+      summary: Listar todos os usuários
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo usuário com os dados fornecidos
+      parameters:
+      - description: Informações do usuário
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.UserResponseDTO'
+      summary: Cria um novo usuário
+      tags:
+      - User
+  /api/users/{user_id}:
+    get:
+      consumes:
+      - application/json
+      description: Lista um usuário específico por ID
+      parameters:
+      - description: ID do usuário
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponseDTO'
+      summary: Listar um usuário por ID
+      tags:
+      - User
+  /api/users/{user_id}/followed/list:
+    get:
+      consumes:
+      - application/json
+      description: Lista os usuários seguidos por um usuário específico
+      parameters:
+      - description: ID do usuário
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Listar usuários seguidos por um usuário
+      tags:
+      - Follow
+  /api/users/{user_id}/followers/count:
+    get:
+      consumes:
+      - application/json
+      description: Conta o número de seguidores de um usuário específico
+      parameters:
+      - description: ID do usuário
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Contar seguidores de um usuário
+      tags:
+      - Follow
+  /api/users/{user_id}/followers/list:
+    get:
+      consumes:
+      - application/json
+      description: Lista os seguidores de um usuário específico
+      parameters:
+      - description: ID do usuário
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: Listar seguidores de um usuário
+      tags:
+      - Follow
+  /api/users/{user_id}/posts:
+    get:
+      consumes:
+      - application/json
+      description: Lista os posts de um usuário específico
+      parameters:
+      - description: ID do usuário
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.PostResponseDTO'
+            type: array
+      summary: Listar posts de um usuário
+      tags:
+      - Post
+  /api/users/follow:
+    post:
+      consumes:
+      - application/json
+      description: Segue um usuário específico
+      parameters:
+      - description: Informações do usuário a ser seguido
+        in: body
+        name: follow
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FollowRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FollowResponseDTO'
+      summary: Seguir um usuário
+      tags:
+      - Follow
+  /api/users/unfollow:
+    post:
+      consumes:
+      - application/json
+      description: Deixa de seguir um usuário específico
+      parameters:
+      - description: Informações do usuário a ser deixado de seguir
+        in: body
+        name: follow
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FollowRequestDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FollowResponseDTO'
+      summary: Deixar de seguir um usuário
+      tags:
+      - Follow
+swagger: "2.0"
